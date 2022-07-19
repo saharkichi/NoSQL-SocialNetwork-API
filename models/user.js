@@ -19,11 +19,11 @@ const userSchema = new Schema(
         },
         thoughts: [ {
             type: Schema.Types.ObjectId,
-            ref: 'Thought'
+            ref: 'thought'
         }],
         friends: [{
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'user'
         }],
     },
     {
@@ -39,9 +39,10 @@ const userSchema = new Schema(
     userSchema.pre('findOneAndDelete', { document: false, query: true }, async function() {
         const doc = await this.model.findOne(this.getFilter());
         console.log(doc.username);
-        await Thought.deleteMany({ username: doc.username });
+        await thought.deleteMany({ username: doc.username });
     });
     
+
     //export user model
-    const User = model('User', userSchema);
-    module.exports = User;
+    const user = model('user', userSchema);
+    module.exports = user;
