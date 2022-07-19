@@ -1,0 +1,20 @@
+{
+  "name": "nosql-socialnetwork-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saharkichi/NoSQL-SocialNetwork-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saharkichi/NoSQL-SocialNetwork-API/issues"
+  },
+  "homepage": "https://github.com/saharkichi/NoSQL-SocialNetwork-API#readme"
+}
