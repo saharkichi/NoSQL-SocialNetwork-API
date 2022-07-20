@@ -57,5 +57,5 @@ const thoughtSchema = new Schema(
     });
     
     // export thought model
-    const thought = model('thought', thoughtSchema);
-    module.exports = thought
+    const Thought = model('thought', thoughtSchema);
+    module.exports = Thought

@@ -68,15 +68,15 @@ module.exports = {
 
 // can add a friend 
 addFriend(req, res) {
-  user.findOneAndUpdate(
+  User.findOneAndUpdate(
     { _id: req.params.userId },
     { $push: { friends: req.params.friendId } },
     { runValidators: true, new: true },
   )
-    .then((user) =>
-      !user
+    .then((users) =>
+      !users
         ? res.status(404).json({ message: 'No user with this id!' })
-        : res.json(user)
+        : res.json(users)
     )
     .catch((err) => res.status(500).json(err));
 },
@@ -84,7 +84,7 @@ addFriend(req, res) {
 
 // delete a friend using findOneAndDelete
 deleteFriend(req, res) {
-  user.findOneAndDelete({ _id: req.params.friendId })
+  User.findOneAndDelete({ _id: req.params.friendId })
   .then((friend) =>
     !friend
       ? res.status(404).json({ message: 'No friend with that ID' })

@@ -76,7 +76,7 @@ updateThought(req, res) {
           ? res.status(404).json({ message: 'No thought found with this ID!' })
           : User.findOneAndUpdate(
               { thoughts: req.params.thoughtId },
-              { $pull: { thoughts: req.params.thoughtID } },
+              { $pull: { thoughts: req.params.thoughtId } },
               { new: true }
             )
       )
@@ -113,7 +113,7 @@ addReaction(req, res) {
 deleteReaction(req, res) {
   Thought.findOneAndUpdate(
     { _id: req.params.thoughtId },
-    { $pull: { reactions: { reactionId: req.params.reactionID } } },
+    { $pull: { reactions: { reactionId: req.params.reactionId } } },
     { new: true }
   )
   .then((reaction) =>
