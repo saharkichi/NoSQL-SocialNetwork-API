@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
-const thoughtController = require('./thoughtController');
+const thoughtController = require('./thought-controller');
 
 //will get all users
 module.exports = {
