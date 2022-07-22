@@ -4,6 +4,7 @@ const thoughtController = require('./thought-controller');
 
 //will get all users
 module.exports = {
+
   getUsers(req, res) {
     User.find()
       .select('-__v')
@@ -56,7 +57,7 @@ module.exports = {
 
   // will delete the user
   deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
+    User.findOneAndRemove({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
@@ -84,17 +85,17 @@ addFriend(req, res) {
 
 // delete a friend using findOneAndDelete
 deleteFriend(req, res) {
-  User.findOneAndDelete({ _id: req.params.friendId })
-  .then((friend) =>
-    !friend
-      ? res.status(404).json({ message: 'No friend with that ID' })
-      : user.findOneAndUpdate(
-        { friends: req.params.friendId },
-        { $pull: { friend: req.params.friendId } },
-        { new: true }
-        )
+  User.findOneAndUpdate(
+    { _id: req.params.userId}, 
+    { $pull: { friends: req.params.friendId} },
+    { runValidators: true, new: true}
   )
-  .then(() => res.json({ message: 'Friend deleted!' }))
-  .catch((err) => res.status(500).json(err));
-},
+  .then((user) => {
+    if (!user) {
+        return res.status(404).json({ message: 'User with this ID does not exist.' });
+    }
+    res.json(user);
+})
+.catch((err) => res.status(500).json(err));
+}
 };
