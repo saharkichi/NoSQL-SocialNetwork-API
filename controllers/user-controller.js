@@ -33,7 +33,7 @@ module.exports = {
   //will create a user using create
   createUser(req, res) {
     User.create(req.body)
-      .then((userData) => res.json(userData))
+      .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
 
@@ -74,10 +74,10 @@ addFriend(req, res) {
     { $push: { friends: req.params.friendId } },
     { runValidators: true, new: true },
   )
-    .then((users) =>
-      !users
+    .then((user) =>
+      !user
         ? res.status(404).json({ message: 'No user with this id!' })
-        : res.json(users)
+        : res.json(user)
     )
     .catch((err) => res.status(500).json(err));
 },
