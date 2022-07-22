@@ -22,5 +22,5 @@ Then test the application throughout Insomnia, as you will see myself doing in t
 
 ## Credits and Collaborators
 
-Github: LinkG, special thanks for helping me throughout this process!
+Github: https://github.com/linklg1 , special thanks for helping me throughout this process!
 
