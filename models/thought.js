@@ -1,4 +1,4 @@
-//require mongoose, reaction schema, format
+//require mongoose, reaction schema, formatDate
 const { Schema, model, Types } = require('mongoose');
 const reactionSchema = require('./reaction');
 const formatDate = require('../utils/date');

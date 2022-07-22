@@ -1,48 +1,42 @@
-// require mongoose and thought data
 const { Schema, model, Types } = require('mongoose');
-const thoughtSchema = require('./thought');
 
+// UserSchema to create model for users
 const userSchema = new Schema(
-    {
-        username: {
-            type: String, 
-            required: true,
-            unique: true,
-            trim: true
-        },
-        email: {
-            type: String, 
-            required: true,
-            unique: true,
-            // remember regex *personal note
-            match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Please fill a valid email address']             
-        },
-        thoughts: [ {
-            type: Schema.Types.ObjectId,
-            ref: 'Thought'
-        }],
-        friends: [{
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        }],
+  {
+    username: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
+      max_length: 50,
     },
-    {
-        toJSON: {
-            virtuals: true,
-        },
-        id: false,
-    });
-    userSchema.virtual('friendCount').get(function () {
-        return this.friends.length
-    });
-    
-    userSchema.pre('findOneAndDelete', { document: false, query: true }, async function() {
-        const doc = await this.model.findOne(this.getFilter());
-        console.log(doc.username);
-        await thought.deleteMany({ username: doc.username });
-    });
-    
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      //remeber regex *personal note
+      match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, "Invalid email provided"],
+    },
+    thoughts: [{
+      type: Schema.Types.ObjectId,
+      ref: 'thought'
+  }],
+    friends: [{
+      type: Schema.Types.ObjectId,
+      ref: 'user'
+  }],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  id: false,
+  }
+);
+userSchema.virtual("friendCount").get(function(){
+  return this.friends.length;
+});
 
-    //export user model
-    const User = model('user', userSchema);
-    module.exports = User;
+const User = model('user', userSchema);
+
+module.exports = User;
