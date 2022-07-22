@@ -67,7 +67,6 @@ updateThought(req, res) {
   )
   .catch((err) => res.status(500).json(err));
 },
-  
   // delete thought using findByIdAndRemove
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
@@ -92,23 +91,26 @@ updateThought(req, res) {
 
 
 //creates a reaction
+//console log addition
 addReaction(req, res) {
+  console.log('You are adding a reaction');
+  console.log(req.body);
   Thought.findOneAndUpdate(
-    {_id: req.params.thoughtId}, 
-    {$set: {reactions: req.body}}, 
-    {new: true, runValidators: true}
+    { _id: req.params.thoughtId },
+    { $set: { reactions: req.body } },
+    { runValidators: true, new: true }
   )
-  .select('-__v')
-  .populate({path: 'reactions', select: '-__v'})
-  .then((thought) =>
-    !thought
-      ? res.status(404).json({ message: 'No thought with this id!' })
-      : res.json(thought)
-  )
-  .catch((err) => res.status(500).json(err));
+    .select('-__v')
+    .populate({path: 'reactions', select: '-__v'})
+    .then((thought) =>
+      !thought
+        ? res
+            .status(404)
+            .json({ message: 'No user found with that ID :(' })
+        : res.json(thought)
+    )
+    .catch((err) => res.status(500).json(err));
 },
-
-
 // deletes a reaction using findOneAndDelete in conjunction with findOneAndUpdate
 deleteReaction(req, res) {
   Thought.findOneAndUpdate(
